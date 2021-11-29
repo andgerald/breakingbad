@@ -1,1 +1,1 @@
-deploy:
+deploy: https://reverent-curie-535acc.netlify.app/
