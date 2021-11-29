@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import Frase from './components/Frase';
 
 const Contenedor = styled.div`
   display: flex;
@@ -16,18 +18,35 @@ const Boton = styled.button`
   padding: 1rem 3 rem;
   font-size: 2rem;
   border: 2px solid black;
+  transition: background-size .8s ease;
+
+  :hover {
+    cursor: pointer;
+    background-size: 400px;
+  }
 `; 
 
 function App() {
 
+  //STATE DE FRASES
+  const [ frase, setFrase] = useState({});
+
   const consultarApi = async () => {
     const api =  await fetch('https://breakingbadapi.com/api/quote/random');
     const frase = await api.json()
-    console.log(frase[0])
+    setFrase(frase[0])
   }
+
+  // CARGAR UNA FRASE
+  useEffect( () => {
+    consultarApi()
+  }, [])
 
   return (
     <Contenedor>
+      <Frase 
+        frase={frase}
+      />
       <Boton 
         onClick={consultarApi}
       >
